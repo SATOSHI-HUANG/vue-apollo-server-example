@@ -1,19 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input v-model="inputName" type="text" />
+    <p>ID: {{ user.id }}</p>
+    <p>Name: {{ user.name }}</p>
+    <p>Age: {{ user.age }}</p>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import gql from "graphql-tag";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: "App",
+  data() {
+    return {
+      user: [],
+      inputName: "Fong"
+    };
+  },
+  apollo: {
+    user() {
+      return {
+        query: gql`
+          query($name: String!) {
+            user(name: $name) {
+              id
+              name
+              age
+            }
+          }
+        `,
+        variables() {
+          return {
+            name: this.inputName
+          };
+        }
+      };
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">
