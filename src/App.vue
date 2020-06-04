@@ -35,8 +35,11 @@ export default {
   name: "App",
   data() {
     return {
-      user: [],
-      inputName: "Fong"
+      users: [],
+      user: {},
+      inputName: "Fong",
+      name: "",
+      age: 0
     };
   },
   apollo: {
