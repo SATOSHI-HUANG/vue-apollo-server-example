@@ -1,9 +1,30 @@
 <template>
   <div id="app">
-    <input v-model="inputName" type="text" />
-    <p>ID: {{ user.id }}</p>
-    <p>Name: {{ user.name }}</p>
-    <p>Age: {{ user.age }}</p>
+    <div>
+      <h2>Search User</h2>
+      <input type="text" v-model="inputName" />
+      <p>ID: {{ user.id }}</p>
+      <p>name: {{ user.name }}</p>
+      <p>age: {{ user.age }}</p>
+    </div>
+
+    <div>
+      <h2>Add User</h2>
+      <input type="text" v-model="name" />
+      <input type="text" v-model="age" />
+      <button @click="addUser">Add User</button>
+    </div>
+
+    <div>
+      <h2>User List</h2>
+      <ul>
+        <li v-for="user in users" :key="user.id">
+          <p>ID: {{ user.id }}</p>
+          <p>name: {{ user.name }}</p>
+          <p>age: {{ user.age }}</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
