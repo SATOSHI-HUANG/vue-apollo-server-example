@@ -60,6 +60,49 @@ export default {
           };
         }
       };
+    },
+    users() {
+      return {
+        query: gql`
+          {
+            users {
+              id
+              name
+              age
+            }
+          }
+        `
+      };
+    }
+  },
+  methods: {
+    addUser() {
+      const name = this.name;
+      const age = parseInt(this.age);
+
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation($name: String!, $age: Int!) {
+              createUser(name: $name, age: $age) {
+                id
+                name
+                age
+              }
+            }
+          `,
+          variables: {
+            name,
+            age
+          }
+        })
+        .then(data => {
+          console.log(data);
+          this.users.push(data.data.createUser);
+        })
+        .catch(err => {
+          throw err;
+        });
     }
   }
 };
